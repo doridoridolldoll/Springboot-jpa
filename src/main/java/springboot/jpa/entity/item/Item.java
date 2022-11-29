@@ -1,8 +1,8 @@
-package springboot.jpa.Entity.item;
+package springboot.jpa.entity.item;
 
 import lombok.Getter;
 import lombok.Setter;
-import springboot.jpa.Entity.Category;
+import springboot.jpa.entity.Category;
 
 import javax.persistence.*;
 import java.util.ArrayList;

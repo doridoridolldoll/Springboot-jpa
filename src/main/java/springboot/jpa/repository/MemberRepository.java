@@ -1,17 +1,17 @@
-package springboot.jpa.Repository;
+package springboot.jpa.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.data.repository.query.Param;
-import org.springframework.stereotype.Repository;
-import springboot.jpa.Entity.Member;
+import springboot.jpa.entity.Member;
 
-@Repository
-@EnableJpaRepositories
+import java.util.List;
+
 public interface MemberRepository extends JpaRepository<Member, Long> {
 
-    @Query("select m from Member m where m.id=:id ")
+    @Query("select m from Member m where m.id=:id")
     Member findOne(@Param("id") Long id);
 
+    @Query("select m from Member m where m.name = :name")
+    List<Member> findByName(@Param("name") String name);
 }

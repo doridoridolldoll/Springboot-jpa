@@ -1,4 +1,4 @@
-package springboot.jpa.Entity.item;
+package springboot.jpa.entity.item;
 
 import lombok.Getter;
 import lombok.Setter;

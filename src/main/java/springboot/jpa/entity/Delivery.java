@@ -1,8 +1,7 @@
-package springboot.jpa.Entity;
+package springboot.jpa.entity;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.aspectj.weaver.ast.Or;
 
 import javax.persistence.*;
 
