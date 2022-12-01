@@ -17,8 +17,9 @@ class MemberRepositoryTest {
     @Transactional
     @Rollback(false)
     public void saveMember() {
-        Member member = new Member();
-        member.setName("memberA");
+        Member member = Member.builder()
+                .name("memberA")
+                .build();
         System.out.println("member = " + member);
 
         Member savedId = memberRepository.save(member);
