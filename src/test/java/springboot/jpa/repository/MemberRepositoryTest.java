@@ -15,7 +15,7 @@ class MemberRepositoryTest {
 
     @Test
     @Transactional
-    @Rollback(false)
+//    @Rollback(false)
     public void saveMember() {
         Member member = Member.builder()
                 .name("memberA")
