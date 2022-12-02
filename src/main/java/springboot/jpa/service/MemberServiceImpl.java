@@ -20,7 +20,6 @@ public class MemberServiceImpl implements MemberService{
     @Override
     @Transactional
     public Long join(Member member) {
-
         validateDuplicateMember(member);
         memberRepository.save(member);
         return member.getId();

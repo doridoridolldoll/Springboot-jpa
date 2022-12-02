@@ -1,13 +1,16 @@
 package springboot.jpa.service;
 
 import springboot.jpa.dto.OrderDto;
-import springboot.jpa.entity.Member;
 import springboot.jpa.entity.Order;
+import springboot.jpa.entity.OrderSearch;
+
+import java.util.List;
 
 public interface OrderService {
 
     Long Order(Long memberId, Long itemId, int count);
     void cancelOrder(Long orderId);
+    List<Order> findOrders(OrderSearch orderSearch);
 
     default OrderDto entityToDto(Order order) {
         OrderDto dto = OrderDto.builder()
@@ -29,4 +32,5 @@ public interface OrderService {
                 .build();
         return entity;
     }
+
 }

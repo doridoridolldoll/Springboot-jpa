@@ -1,18 +1,14 @@
-package springboot.jpa.dto;
+package springboot.jpa.form;
 
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
-import java.time.LocalDateTime;
-
-@Data
+@Getter
 @SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
-public class BookDto extends ItemDto {
+public class BookForm extends ItemForm {
 
-    private Long id;
     private String author;
     private String isbn;
 }

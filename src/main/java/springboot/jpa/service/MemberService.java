@@ -1,18 +1,13 @@
 package springboot.jpa.service;
 
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import springboot.jpa.dto.MemberDto;
 import springboot.jpa.entity.Member;
-import springboot.jpa.repository.MemberRepository;
 
 import java.util.List;
 
 public interface MemberService {
 
     Long join(Member member);
-
     void validateDuplicateMember(Member member);
     List<Member> findMembers();
     Member findOne(Long memberId);

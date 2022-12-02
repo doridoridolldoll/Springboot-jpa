@@ -2,11 +2,11 @@ package springboot.jpa.entity.item;
 
 import lombok.*;
 import lombok.experimental.SuperBuilder;
-import springboot.jpa.entity.Category;
+import org.springframework.beans.factory.annotation.Autowired;
+import springboot.jpa.repository.ItemRepository;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import java.util.List;
 
 @Entity
 @DiscriminatorValue("B")
@@ -18,5 +18,10 @@ import java.util.List;
 public class Book extends Item {
 
     private String author;
-    private String ISBN;
+    private String isbn;
+
+    public void updateBook(String author, String isbn) {
+        this.author = author;
+        this.isbn = isbn;
+    }
 }

@@ -2,16 +2,16 @@ package springboot.jpa.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import springboot.jpa.entity.Delivery;
-import springboot.jpa.entity.Member;
-import springboot.jpa.entity.Order;
-import springboot.jpa.entity.OrderItem;
+import springboot.jpa.entity.*;
 import springboot.jpa.entity.item.Item;
 import springboot.jpa.repository.ItemRepository;
 import springboot.jpa.repository.MemberRepository;
 import springboot.jpa.repository.OrderRepository;
+
+import java.util.List;
 
 @Service
 @Transactional(readOnly = true)
@@ -48,7 +48,7 @@ public class OrderServiceImpl implements OrderService {
         order.cancel();
     }
 
-//    public List<Order> findOrders(OrderSearch orderSearch) {
-//        return orderRepository.findAll(orderSearch);
-//    }
+    public List<Order> findOrders(OrderSearch orderSearch) {
+        return orderRepository.findAll(orderSearch);
+    }
 }
