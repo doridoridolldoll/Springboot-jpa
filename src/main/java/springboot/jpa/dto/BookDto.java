@@ -5,11 +5,11 @@ import lombok.experimental.SuperBuilder;
 
 import java.time.LocalDateTime;
 
-@Data
 @SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
+@Getter
 public class BookDto extends ItemDto {
 
     private Long id;

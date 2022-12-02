@@ -43,12 +43,12 @@ public class OrderServiceImpl implements OrderService {
 
     @Transactional
     public void cancelOrder(Long orderId) {
-
+        log.info("orderId = {}", orderId);
         Order order = orderRepository.findOne(orderId);
         order.cancel();
     }
 
     public List<Order> findOrders(OrderSearch orderSearch) {
-        return orderRepository.findAll(orderSearch);
+        return orderRepository.findAllByString(orderSearch);
     }
 }

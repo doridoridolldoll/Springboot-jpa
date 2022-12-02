@@ -1,11 +1,10 @@
 package springboot.jpa.controller;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import springboot.jpa.dto.OrderDto;
 import springboot.jpa.entity.Member;
 import springboot.jpa.entity.Order;
@@ -20,6 +19,7 @@ import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
+@Slf4j
 public class OrderController {
 
     private final MemberRepository memberRepository;
@@ -40,7 +40,7 @@ public class OrderController {
     @PostMapping("/order")
     public String Order(Long memberId, Long itemId, int count) {
         orderService.Order(memberId, itemId, count);
-        return "redirect:/";
+        return "redirect:/orders";
     }
 
     @GetMapping("/orders")
@@ -48,5 +48,12 @@ public class OrderController {
         List<Order> orders = orderService.findOrders(orderSearch);
         model.addAttribute("orders", orders);
         return "order/orderList";
+    }
+
+    @DeleteMapping("/orders/cancel/{orderId}")
+    public String cancel(@PathVariable("orderId") Long orderId) {
+        log.info("orderId ={}", orderId);
+        orderService.cancelOrder(orderId);
+        return "redirect:/orders";
     }
 }
