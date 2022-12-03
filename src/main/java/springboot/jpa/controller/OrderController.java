@@ -29,7 +29,7 @@ public class OrderController {
     @GetMapping("/order")
     public String OrderForm(Model model) {
         List<Member> members = memberRepository.findAll();
-        List<Item> items = itemRepository.findAll();
+        List<Item> items = itemRepository.findAllItem();
 
         model.addAttribute("members", members);
         model.addAttribute("items", items);

@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import springboot.jpa.dto.BookDto;
 import springboot.jpa.entity.item.Book;
 import springboot.jpa.entity.item.Item;
-import springboot.jpa.form.BookForm;
 import springboot.jpa.repository.ItemRepository;
 import springboot.jpa.service.ItemService;
 
@@ -28,22 +27,15 @@ public class ItemController {
 
     @GetMapping("/items/new")
     public String createItemForm(Model model) {
-        model.addAttribute("form", new BookDto());
+        BookDto book = new BookDto();
+        model.addAttribute("dto", book);
         return "items/createItemForm";
     }
 
     @PostMapping("/items/new")
-    public String createItem(@Valid BookDto dto) {
-        Book item = Book.builder()
-                .name(dto.getName())
-                .price(dto.getPrice())
-                .stockQuantity(dto.getStockQuantity())
-                .author(dto.getAuthor())
-                .isbn(dto.getIsbn())
-                .build();
-        log.info("item ={}", item);
-
-        itemRepository.save(item);
+    public String createItem(BookDto dto) {
+        log.info("createItem dto ={}", dto);
+        itemService.createBook(dto);
 
         return "redirect:/";
     }
@@ -59,6 +51,7 @@ public class ItemController {
     @GetMapping("/items/{itemId}/edit")
     public String updateItemForm(@PathVariable("itemId") Long itemId, Model model) {
         Book findItem = (Book) itemRepository.findOne(itemId);
+        log.info("findItem = {}", findItem);
 
         Book dto = Book.builder()
                 .name(findItem.getName())
@@ -67,9 +60,8 @@ public class ItemController {
                 .author(findItem.getAuthor())
                 .isbn(findItem.getIsbn())
                 .build();
-
+        log.info("dto = {}", dto.getAuthor());
         model.addAttribute("dto", dto);
-
         return "items/updateItemForm";
     }
 

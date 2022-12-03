@@ -9,9 +9,8 @@ import java.util.List;
 @Entity
 @Builder
 @Getter
-@Setter
 @AllArgsConstructor
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor
 public class Member {
 
     @Id @GeneratedValue
@@ -26,4 +25,9 @@ public class Member {
     @OneToMany(mappedBy = "member")
     @Builder.Default
     private List<Order> orders = new ArrayList<>();
+
+//    public Member(String name, Address address) {
+//        this.name = name;
+//        this.address = address;
+//    }
 }

@@ -12,6 +12,7 @@ public interface ItemService {
     void saveItem(Item item);
     List<Item> findItems ();
     Item findOne(Long itemId);
+    void createBook(BookDto dto);
     void updateBook(Long itemId, @Valid BookDto dto);
 
     default BookDto bookEntityToDto(Book book) {

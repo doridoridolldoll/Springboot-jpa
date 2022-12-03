@@ -7,7 +7,8 @@ import springboot.jpa.entity.Order;
 import java.util.ArrayList;
 import java.util.List;
 
-@Data
+@Getter
+@Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -15,7 +16,9 @@ import java.util.List;
 public class MemberDto {
 
     private String name;
-    private Address address;
+    private String city;
+    private String street;
+    private String zipcode;
     @Builder.Default
     private List<Order> orders = new ArrayList<>();
 }

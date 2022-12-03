@@ -13,4 +13,6 @@ public class Homecontroller {
         log.info("home controller");
         return "home";
     }
+
+
 }

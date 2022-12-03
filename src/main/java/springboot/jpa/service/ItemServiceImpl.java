@@ -36,12 +36,33 @@ public class ItemServiceImpl implements ItemService {
         return itemRepository.findOne(itemId);
     }
 
+    public void createBook(BookDto dto) {
+        log.info("dto = {}", dto);
+//        Book entity = bookDtoToEntity(dto);
+//        log.info("entity = {}", entity);
+
+        Book book = Book.builder()
+                .name(dto.getName())
+                .price(dto.getPrice())
+                .stockQuantity(dto.getStockQuantity())
+                .author(dto.getAuthor())
+                .isbn(dto.getIsbn())
+                .build();
+        itemRepository.save(book);
+    }
+
     @Transactional
     public void updateBook(Long itemId, @Valid BookDto dto) {
-        Book book = itemRepository.findBook(itemId);
-        book.updateBook(dto.getAuthor(), dto.getIsbn());
+        log.info("updateBook dto = {}", dto);
+
+        Book entity = bookDtoToEntity(dto);
+
+        Book book = (Book) itemRepository.findOne(itemId);
+        book.updateBook(entity.getAuthor(), entity.getIsbn());
+        log.info("updateBook book = {}," + entity.getAuthor(), entity.getIsbn());
 
         Item item = itemRepository.findOne(itemId);
-        item.updateItem(dto.getName(), dto.getPrice(), dto.getStockQuantity());
+        item.updateItem(entity.getName(), entity.getPrice(), entity.getStockQuantity());
+        log.info("updateBook item = {},{}" + entity.getName(), entity.getPrice(), entity.getStockQuantity());
     }
 }

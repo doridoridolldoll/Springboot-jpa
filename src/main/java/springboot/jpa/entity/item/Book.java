@@ -7,6 +7,7 @@ import springboot.jpa.repository.ItemRepository;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 
 @Entity
 @DiscriminatorValue("B")
