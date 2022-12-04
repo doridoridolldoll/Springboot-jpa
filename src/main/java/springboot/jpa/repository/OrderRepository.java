@@ -13,9 +13,8 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
     @Query("select o from Order o where o.id =:id")
     Order findOne(@Param("id") Long id);
 
-    @Query(value = "select o From Order o join o.member m " +
-            "where o.status = :#{#orderSearch.orderStatus} " +
-            "and m.name like concat('%',:#{#orderSearch.memberName},'%')")
+    @Query("select o From Order o join o.member m " +
+            "where o.status = :#{#orderSearch.orderStatus} and " +
+            "m.name like concat('%',:#{#orderSearch.memberName},'%')")
     List<Order> findAll(@Param("orderSearch") OrderSearch orderSearch);
-
 }

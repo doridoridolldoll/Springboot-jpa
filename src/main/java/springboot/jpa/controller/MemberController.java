@@ -1,6 +1,7 @@
 package springboot.jpa.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,16 +36,14 @@ public class MemberController {
         return "members/createMemberForm";
     }
 
+    @GetMapping("/members/login")
+    public String loginForm() {
+        return "members/login";
+    }
+
     @PostMapping("/members/new")
     public String join(@Valid MemberDto dto) {
-        Address address = new Address(dto.getCity(), dto.getStreet(), dto.getZipcode());
-
-        Member member = Member.builder()
-                .name(dto.getName())
-                .address(address)
-                .build();
-
-        memberService.join(member);
+        memberService.join(dto);
         return "redirect:/";
     }
 
@@ -60,21 +59,27 @@ public class MemberController {
         int leftLimit = 48; // numeral '0'
         int rightLimit = 122; // letter 'z'
         int targetStringLength = 10;
-        Random random = new Random();
-        String generatedString = random.ints(leftLimit, rightLimit + 1)
-                .filter(i -> (i <= 57 || i >= 65) && (i <= 90 || i >= 97))
-                .limit(targetStringLength)
-                .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
-                .toString();
+        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
 
         for (int i = 0; i < 10; i++) {
             Address address = new Address("부산시" + i, "남구" + i, "4857" + i);
+            String password = bCryptPasswordEncoder.encode(String.valueOf(i));
+
             Member member = Member.builder()
                     .name("member" + i)
+                    .email("email" + i)
+                    .password(password)
                     .address(address)
                     .build();
 
             memberRepository.save(member);
+
+            Random random = new Random();
+            String generatedString = random.ints(leftLimit, rightLimit + 1)
+                    .filter(a -> (a <= 57 || a >= 65) && (a <= 90 || a >= 97))
+                    .limit(targetStringLength)
+                    .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
+                    .toString();
 
             double math = Math.floor(Math.random() * 100);
             Book book = Book.builder()
