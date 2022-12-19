@@ -8,12 +8,10 @@ import java.util.List;
 
 public interface MemberService {
 
-    Long join(MemberDto dto);
+    Long join(Member dto);
     void validateDuplicateMember(Member member);
     List<Member> findMembers();
     Member findOne(Long memberId);
-
-    Member loadUserByUsername(String email);
 
     default MemberDto entityToDto(Member member) {
         MemberDto dto = MemberDto.builder()
