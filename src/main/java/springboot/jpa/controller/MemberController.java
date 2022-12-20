@@ -1,7 +1,6 @@
 package springboot.jpa.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -42,7 +41,7 @@ public class MemberController {
     }
 
     @PostMapping("/members/new")
-    public String join(@Valid MemberDto dto) {
+    public String join(@Valid Member dto) {
         memberService.join(dto);
         return "redirect:/";
     }
@@ -54,43 +53,41 @@ public class MemberController {
         return "/members/memberList";
     }
 
-    @PostConstruct
-    public void init() {
-        int leftLimit = 48; // numeral '0'
-        int rightLimit = 122; // letter 'z'
-        int targetStringLength = 10;
-        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
-
-        for (int i = 0; i < 10; i++) {
-            Address address = new Address("부산시" + i, "남구" + i, "4857" + i);
-            String password = bCryptPasswordEncoder.encode(String.valueOf(i));
-
-            Member member = Member.builder()
-                    .name("member" + i)
-                    .email("email" + i)
-                    .password(password)
-                    .address(address)
-                    .build();
-
-            memberRepository.save(member);
-
-            Random random = new Random();
-            String generatedString = random.ints(leftLimit, rightLimit + 1)
-                    .filter(a -> (a <= 57 || a >= 65) && (a <= 90 || a >= 97))
-                    .limit(targetStringLength)
-                    .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
-                    .toString();
-
-            double math = Math.floor(Math.random() * 100);
-            Book book = Book.builder()
-                    .name("book" + (int) math)
-                    .price((int) (1000 + (i * math)))
-                    .stockQuantity((int) math)
-                    .author(generatedString)
-                    .isbn(String.valueOf((int) math * 100))
-                    .build();
-
-            itemRepository.save(book);
-        }
-    }
+//    @PostConstruct
+//    public void init() {
+//        int leftLimit = 48; // numeral '0'
+//        int rightLimit = 122; // letter 'z'
+//        int targetStringLength = 10;
+//
+//        for (int i = 0; i < 10; i++) {
+//            Address address = new Address("부산시" + i, "남구" + i, "4857" + i);
+//
+//            Member member = Member.builder()
+//                    .name("member" + i)
+//                    .email("email" + i)
+//                    .password("12")
+//                    .address(address)
+//                    .build();
+//
+//            memberRepository.save(member);
+//
+//            Random random = new Random();
+//            String generatedString = random.ints(leftLimit, rightLimit + 1)
+//                    .filter(a -> (a <= 57 || a >= 65) && (a <= 90 || a >= 97))
+//                    .limit(targetStringLength)
+//                    .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
+//                    .toString();
+//
+//            double math = Math.floor(Math.random() * 100);
+//            Book book = Book.builder()
+//                    .name("book" + (int) math)
+//                    .price((int) (1000 + (i * math)))
+//                    .stockQuantity((int) math)
+//                    .author(generatedString)
+//                    .isbn(String.valueOf((int) math * 100))
+//                    .build();
+//
+//            itemRepository.save(book);
+//        }
+//    }
 }
