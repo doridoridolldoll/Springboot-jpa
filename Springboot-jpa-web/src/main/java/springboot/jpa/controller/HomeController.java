@@ -14,8 +14,6 @@ public class HomeController {
     public String home() {
         log.info("home controller");
         return "home";
-        Scanner sc = new Scanner(System.in);
-        sc.
     }
 
 

@@ -1,5 +1,6 @@
 package springboot.jpa.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -10,6 +11,7 @@ import java.util.List;
 @Entity
 @Builder
 @Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class Member {
@@ -24,6 +26,7 @@ public class Member {
     @Embedded
     private Address address;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "member")
     @Builder.Default
     private List<Order> orders = new ArrayList<>();

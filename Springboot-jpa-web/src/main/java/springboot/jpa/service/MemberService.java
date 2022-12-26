@@ -12,6 +12,8 @@ public interface MemberService {
     void validateDuplicateMember(Member member);
     List<Member> findMembers();
     Member findOne(Long memberId);
+    void update(Long id, String name);
+
 
     default MemberDto entityToDto(Member member) {
         MemberDto dto = MemberDto.builder()
@@ -36,4 +38,5 @@ public interface MemberService {
                 .build();
         return entity;
     }
+
 }

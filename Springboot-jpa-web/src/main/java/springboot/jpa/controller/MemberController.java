@@ -30,7 +30,7 @@ public class MemberController {
 
     @GetMapping("/members/new")
     public String createForm(Model model) {
-        MemberDto member = new MemberDto();
+        Member member = new Member();
         model.addAttribute("member", member);
         return "members/createMemberForm";
     }

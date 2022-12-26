@@ -2,7 +2,6 @@ package springboot.jpa.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import springboot.jpa.entity.*;
@@ -10,6 +9,7 @@ import springboot.jpa.entity.item.Item;
 import springboot.jpa.repository.ItemRepository;
 import springboot.jpa.repository.MemberRepository;
 import springboot.jpa.repository.OrderRepository;
+import springboot.jpa.repository.OrderRepository2;
 
 import java.util.List;
 
@@ -20,6 +20,7 @@ import java.util.List;
 public class OrderServiceImpl implements OrderService {
 
     private final OrderRepository orderRepository;
+    private final OrderRepository2 orderRepository2;
     private final MemberRepository memberRepository;
     private final ItemRepository itemRepository;
 
@@ -49,6 +50,6 @@ public class OrderServiceImpl implements OrderService {
     }
 
     public List<Order> findOrders(OrderSearch orderSearch) {
-        return orderRepository.findAll(orderSearch);
+        return orderRepository2.findAllByString(orderSearch);
     }
 }
